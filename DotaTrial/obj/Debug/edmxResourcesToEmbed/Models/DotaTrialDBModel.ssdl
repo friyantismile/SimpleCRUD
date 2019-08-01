@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DotaTrialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Hero">
+    <Key>
+      <PropertyRef Name="HeroID" />
+    </Key>
+    <Property Name="HeroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HeroFullname" Type="varchar" MaxLength="50" />
+    <Property Name="HeroNickname" Type="varchar" MaxLength="50" />
+    <Property Name="HeroImages" Type="text" />
+  </EntityType>
+  <EntityType Name="HeroItem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HeroID" Type="int" />
+    <Property Name="ItemID" Type="int" />
+  </EntityType>
+  <EntityType Name="HeroSkill">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HeroID" Type="int" />
+    <Property Name="SkillID" Type="int" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemName" Type="varchar" MaxLength="50" />
+    <Property Name="Strenght" Type="int" />
+    <Property Name="Agility" Type="int" />
+    <Property Name="Intelligent" Type="int" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="SkillID" />
+    </Key>
+    <Property Name="SkillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SkillName" Type="varchar" MaxLength="50" />
+    <Property Name="SkillFunction" Type="text" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_HeroItem_Hero">
+    <End Role="Hero" Type="Self.Hero" Multiplicity="0..1" />
+    <End Role="HeroItem" Type="Self.HeroItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hero">
+        <PropertyRef Name="HeroID" />
+      </Principal>
+      <Dependent Role="HeroItem">
+        <PropertyRef Name="HeroID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeroItem_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="HeroItem" Type="Self.HeroItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="HeroItem">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeroSkill_Hero">
+    <End Role="Hero" Type="Self.Hero" Multiplicity="0..1" />
+    <End Role="HeroSkill" Type="Self.HeroSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hero">
+        <PropertyRef Name="HeroID" />
+      </Principal>
+      <Dependent Role="HeroSkill">
+        <PropertyRef Name="HeroID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeroSkill_Skill">
+    <End Role="Skill" Type="Self.Skill" Multiplicity="0..1" />
+    <End Role="HeroSkill" Type="Self.HeroSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="SkillID" />
+      </Principal>
+      <Dependent Role="HeroSkill">
+        <PropertyRef Name="SkillID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DotaTrialModelStoreContainer">
+    <EntitySet Name="Hero" EntityType="Self.Hero" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HeroItem" EntityType="Self.HeroItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HeroSkill" EntityType="Self.HeroSkill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_HeroItem_Hero" Association="Self.FK_HeroItem_Hero">
+      <End Role="Hero" EntitySet="Hero" />
+      <End Role="HeroItem" EntitySet="HeroItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeroItem_Item" Association="Self.FK_HeroItem_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="HeroItem" EntitySet="HeroItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeroSkill_Hero" Association="Self.FK_HeroSkill_Hero">
+      <End Role="Hero" EntitySet="Hero" />
+      <End Role="HeroSkill" EntitySet="HeroSkill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeroSkill_Skill" Association="Self.FK_HeroSkill_Skill">
+      <End Role="Skill" EntitySet="Skill" />
+      <End Role="HeroSkill" EntitySet="HeroSkill" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

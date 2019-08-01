@@ -1,0 +1,167 @@
+﻿@model IEnumerable<DotaTrial.ViewModel.AssignedItem>
+@{
+    ViewBag.Title = "Manage Item";
+    ViewBag.CurrentPage = "Items";
+}
+<h2 style="margin-top: 0;" class="pull-left ">Manage Items</h2>
+<button type="button" class="btn bg-teal waves-effect pull-right" data-toggle="modal" data-target="#mdlCreateItem" style="margin-top: 0;"><i class="material-icons">plus_one</i> Create New</button>
+<br /><br /><br />
+
+<div class="row clearfix">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-lg-offset-2">
+        <div class="card">
+            <div class="body table-responsive">
+                <table class="table table-bordered">
+                    <tr class="bg-teal">
+                        <th class="text-center">Item Name</th>
+                        <th class="text-center">Strenght</th>
+                        <th class="text-center">Agility</th>
+                        <th class="text-center">Intelligent</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="@Url.Action("Details", "Items", new { hello = item.ItemEncrypt })" class="dotaName@(item.ItemID)">@item.ItemName</a>
+                            </td>
+                            <td class="text-center">
+                                <span class="dotaStrenght@(item.ItemEncrypt)">@item.ItemStrenght</span> 
+                            </td>
+                            <td class="text-center">
+                                <span class="dotaAgility@(item.ItemEncrypt)">@item.ItemAgility</span> 
+                            </td>
+                            <td class="text-center">
+                                <span class="dotaIntelligent@(item.ItemEncrypt)">@item.ItemIntelligent</span> 
+                            </td>
+                            <td class="text-center">
+                                <!--<a href="@**@Url.Action("Edit", "Items", new { id = item.ItemID })" class="btn btn-warning">
+                                    <i class="material-icons" style="font-size:small">mode_edit</i> 
+                                </a>-->
+                                <button type="button" class="btn btn-warning btn-edit" item-id="@item.ItemID" data-toggle="modal" data-target="#mdlEditItem" style="margin-top: 0;"><i class="material-icons" style="font-size:small">mode_edit</i></button>
+                                
+                                <a href="@Url.Action("Delete", "Items", new { hello = item.ItemID })" class="btn btn-danger">
+                                    <i class="material-icons" style="font-size:small">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="mdlCreateItem" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-teal">
+                <h4 class="modal-title" id="defaultModalLabel">Create New Item</h4>
+            </div>
+            @using (Html.BeginForm("Create", "Items", null, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="@Html.DisplayNameFor(model => model.ItemName)" class="form-control" placeholder="@Html.DisplayNameFor(model => model.ItemName)" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number" name="@Html.DisplayNameFor(model => model.ItemStrenght)" class="form-control" placeholder="@Html.DisplayNameFor(model => model.ItemStrenght)" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number" name="@Html.DisplayNameFor(model => model.ItemAgility)" class="form-control" placeholder="@Html.DisplayNameFor(model => model.ItemAgility)"  value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number" name="@Html.DisplayNameFor(model => model.ItemIntelligent)" class="form-control" placeholder="@Html.DisplayNameFor(model => model.ItemIntelligent)" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-link waves-effect bg-teal">SAVE</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mdlEditItem" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-orange">
+                <h4 class="modal-title" id="defaultModalLabel">Edit Item</h4>
+            </div>
+            @using (Html.BeginForm("Edit", "Items", null, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                
+                <div class="modal-body">
+                    <div class="row clearfix">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <input type="text" hidden name="@Html.DisplayNameFor(model => model.ItemID)" class="txtItemID" value="">
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" name="@Html.DisplayNameFor(model => model.ItemName)" class="form-control txtName" placeholder="@Html.DisplayNameFor(model => model.ItemName)" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number" name="@Html.DisplayNameFor(model => model.ItemStrenght)" class="form-control txtStrenght" placeholder="@Html.DisplayNameFor(model => model.ItemStrenght)" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number" name="@Html.DisplayNameFor(model => model.ItemAgility)" class="form-control txtAgility" placeholder="@Html.DisplayNameFor(model => model.ItemAgility)" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="number" name="@Html.DisplayNameFor(model => model.ItemIntelligent)" class="form-control txtIntelligent" placeholder="@Html.DisplayNameFor(model => model.ItemIntelligent)" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-link waves-effect bg-orange">SAVE CHANGES</button>
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

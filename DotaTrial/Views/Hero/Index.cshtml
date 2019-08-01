@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DotaTrial.Models.Hero>
+
+@{
+    ViewBag.Title = "Manage Hero";
+    ViewBag.CurrentPage = "Hero";
+}
+ 
+    <h2 style="margin-top: 0;" class="pull-left ">Manage Hero</h2>
+    <a href="@Url.Action("Create")" class="btn bg-teal waves-effect pull-right" style="margin-top: 0;">
+        <i class="material-icons">plus_one</i> Create New
+    </a>
+ <br /><br /><br />
+<div class="row clearfix">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="card">
+                <div class="body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding-right:0">
+                            <img src="~/Images/@(item.HeroImages==null ? "profile-account.png":item.HeroImages)" style="max-width: 100%;height: 150px;" />                     
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                            <label>@Html.DisplayFor(modelItem => item.Heroname)</label>
+                            <br />
+                            <span>@Html.DisplayFor(modelItem => item.HeroNickname)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="header" style="text-align: right;">
+ 
+                    <a href="@Url.Action("Edit", "Hero", new { id = item.HeroID })" class="btn btn-warning">
+                        <i class="material-icons" style="font-size:small">mode_edit</i> EDIT
+                    </a>
+                    <a href="@Url.Action("Delete", "Hero", new { id = item.HeroID })" class="btn btn-danger">
+                        <i class="material-icons" style="font-size:small">delete</i> DELETE
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

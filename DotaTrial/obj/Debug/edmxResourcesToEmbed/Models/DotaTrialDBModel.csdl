@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DotaTrialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Hero">
+    <Key>
+      <PropertyRef Name="HeroID" />
+    </Key>
+    <Property Name="HeroID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Heroname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="HeroNickname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="HeroItems" Relationship="Self.FK_HeroItem_Hero" FromRole="Hero" ToRole="HeroItem" />
+    <NavigationProperty Name="HeroSkills" Relationship="Self.FK_HeroSkill_Hero" FromRole="Hero" ToRole="HeroSkill" />
+    <Property Name="HeroImages" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="HeroItem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HeroID" Type="Int32" />
+    <Property Name="ItemID" Type="Int32" />
+    <NavigationProperty Name="Hero" Relationship="Self.FK_HeroItem_Hero" FromRole="HeroItem" ToRole="Hero" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_HeroItem_Item" FromRole="HeroItem" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="HeroSkill">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HeroID" Type="Int32" />
+    <Property Name="SkillID" Type="Int32" />
+    <NavigationProperty Name="Hero" Relationship="Self.FK_HeroSkill_Hero" FromRole="HeroSkill" ToRole="Hero" />
+    <NavigationProperty Name="Skill" Relationship="Self.FK_HeroSkill_Skill" FromRole="HeroSkill" ToRole="Skill" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Strenght" Type="Int32" />
+    <Property Name="Agility" Type="Int32" />
+    <Property Name="Intelligent" Type="Int32" />
+    <NavigationProperty Name="HeroItems" Relationship="Self.FK_HeroItem_Item" FromRole="Item" ToRole="HeroItem" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="SkillID" />
+    </Key>
+    <Property Name="SkillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SkillName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SkillFunction" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="HeroSkills" Relationship="Self.FK_HeroSkill_Skill" FromRole="Skill" ToRole="HeroSkill" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_HeroItem_Hero">
+    <End Role="Hero" Type="Self.Hero" Multiplicity="0..1" />
+    <End Role="HeroItem" Type="Self.HeroItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hero">
+        <PropertyRef Name="HeroID" />
+      </Principal>
+      <Dependent Role="HeroItem">
+        <PropertyRef Name="HeroID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeroSkill_Hero">
+    <End Role="Hero" Type="Self.Hero" Multiplicity="0..1" />
+    <End Role="HeroSkill" Type="Self.HeroSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hero">
+        <PropertyRef Name="HeroID" />
+      </Principal>
+      <Dependent Role="HeroSkill">
+        <PropertyRef Name="HeroID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeroItem_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="HeroItem" Type="Self.HeroItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="HeroItem">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HeroSkill_Skill">
+    <End Role="Skill" Type="Self.Skill" Multiplicity="0..1" />
+    <End Role="HeroSkill" Type="Self.HeroSkill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="SkillID" />
+      </Principal>
+      <Dependent Role="HeroSkill">
+        <PropertyRef Name="SkillID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DotaTrialEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Heroes" EntityType="Self.Hero" />
+    <EntitySet Name="HeroItems" EntityType="Self.HeroItem" />
+    <EntitySet Name="HeroSkills" EntityType="Self.HeroSkill" />
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="Skills" EntityType="Self.Skill" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_HeroItem_Hero" Association="Self.FK_HeroItem_Hero">
+      <End Role="Hero" EntitySet="Heroes" />
+      <End Role="HeroItem" EntitySet="HeroItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeroSkill_Hero" Association="Self.FK_HeroSkill_Hero">
+      <End Role="Hero" EntitySet="Heroes" />
+      <End Role="HeroSkill" EntitySet="HeroSkills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeroItem_Item" Association="Self.FK_HeroItem_Item">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="HeroItem" EntitySet="HeroItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HeroSkill_Skill" Association="Self.FK_HeroSkill_Skill">
+      <End Role="Skill" EntitySet="Skills" />
+      <End Role="HeroSkill" EntitySet="HeroSkills" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

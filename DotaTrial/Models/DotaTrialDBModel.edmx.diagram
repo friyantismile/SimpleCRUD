@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8030c476ccf8482896971c096764223f" Name="Diagram1">
+        <EntityTypeShape EntityType="DotaTrialModel.Hero" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DotaTrialModel.HeroItem" Width="1.5" PointX="4.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DotaTrialModel.HeroSkill" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" FillColor="255, 128, 128" />
+        <EntityTypeShape EntityType="DotaTrialModel.Item" Width="1.5" PointX="5" PointY="0.75" IsExpanded="true" FillColor="255, 128, 255" />
+        <EntityTypeShape EntityType="DotaTrialModel.Skill" Width="1.5" PointX="2.625" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DotaTrialModel.sysdiagram" Width="1.5" PointX="6.625" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="DotaTrialModel.FK_HeroItem_Hero" ManuallyRouted="false" />
+        <AssociationConnector Association="DotaTrialModel.FK_HeroSkill_Hero" ManuallyRouted="false" />
+        <AssociationConnector Association="DotaTrialModel.FK_HeroItem_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="DotaTrialModel.FK_HeroSkill_Skill" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

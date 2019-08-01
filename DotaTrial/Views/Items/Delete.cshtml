@@ -1,0 +1,66 @@
+﻿@model DotaTrial.Models.Item
+
+@{
+    ViewBag.Title = "Delete";
+    ViewBag.BreadCrumbs = "<a href=/Items>ITEMS</a> &raquo; Delete Hero";
+    ViewBag.CurrentPage = "Items";
+}
+
+<div class="row clearfix">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-3">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Delete @Model.ItemName's Details
+                </h2>
+            </div>
+            <div class="body">
+                <h3 class="col-red">Are you sure you want to delete the selected Item?</h3>
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ItemName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.ItemName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Strenght)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Strenght)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Agility)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Agility)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Intelligent)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Intelligent)
+                        </dd>
+
+                    </dl>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group text-right" style="margin-bottom:0;">
+                            <button type="submit" class="btn btn-danger m-t-15 waves-effect">Delete</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
